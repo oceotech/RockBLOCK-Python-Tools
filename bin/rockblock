@@ -1,0 +1,104 @@
+#!/usr/bin/env python
+
+from argparse import ArgumentParser
+from rockblock_tools import send
+
+parser = ArgumentParser(description='Send and receive messages from the RockBLOCK web services.')
+subparsers = parser.add_subparsers(title='commands', help='Available commands', dest='command')
+
+send_parser = subparsers.add_parser('send', help='Send a message to a RockBLOCK')
+send_parser.add_argument('imei', type=str, help='RockBLOCK IMEI number')
+send_parser.add_argument('username', type=str, help='Your RockBLOCK username')
+send_parser.add_argument('password', type=str, help='Your RockBLOCK password')
+send_parser.add_argument('data', type=str, help='The data you want to send')
+send_parser.add_argument('data-format', type=str, default='raw', choices=['raw', 'hex', 'base64'], help='What format is your data in?')
+
+
+def send_command(args):
+    pass
+
+
+listen_parser = subparsers.add_parser('listen', help='Listen to web hooks from a RockBLOCK')
+listen_subparsers = listen_parser.add_subparsers(title='formats', help='Available formats', dest='format')
+
+
+def listen_command(args):
+    pass
+
+
+listen_console_parser = listen_subparsers.add_parser('console')
+listen_console_parser.add_argument('host', type=str, help='The host to listen on, e.g. 0.0.0.0')
+listen_console_parser.add_argument('port', type=str, help='The port to listen on, e.g. 80')
+
+
+def listen_console_formatter():
+    def handler(message):
+        print(message)
+
+    return {
+        'handler': handler,
+    }
+
+
+listen_csv_parser = listen_subparsers.add_parser('csv')
+listen_csv_parser.add_argument('host', type=str, help='The hostname to listen on, e.g. localhost')
+listen_csv_parser.add_argument('port', type=str, help='The port to listen on, e.g. 80')
+listen_csv_parser.add_argument('csv-file', type=str, help='The CSV file to write messages to')
+
+
+def listen_csv_formatter(csv_file):
+    def open():
+        pass
+
+    def handler(message):
+        pass
+
+    def close():
+        pass
+
+    return {
+        'open': open,
+        'handler': handler,
+        'close': close,
+    }
+
+
+listen_mqtt_parser = listen_subparsers.add_parser('mqtt')
+listen_mqtt_parser.add_argument('host', type=str, help='The hostname to listen on, e.g. localhost')
+listen_mqtt_parser.add_argument('port', type=str, help='The port to listen on, e.g. 80')
+listen_mqtt_parser.add_argument('mqtt-host', type=str, help='The MQTT broker host')
+listen_mqtt_parser.add_argument('mqtt-port', type=int, help='The MQTT broker port')
+listen_mqtt_parser.add_argument('mqtt-topic', type=str, help='The MQTT topic to publish to')
+listen_mqtt_parser.add_argument('--mqtt-user', type=str, default=None, help='The username for the MQTT broker')
+listen_mqtt_parser.add_argument('--mqtt-pass', type=str, default=None, help='The password for the MQTT broker')
+listen_mqtt_parser.add_argument('--mqtt-qos', type=int, default=0, choices=[0, 1, 2], help='The password for the MQTT broker')
+
+
+def listen_mqtt_formatter(mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_pass, mqtt_qos):
+    def open():
+        pass
+
+    def handler(message):
+        pass
+
+    def close():
+        pass
+
+    return {
+        'open': open,
+        'handler': handler,
+        'close': close,
+    }
+
+
+def main():
+    args = parser.parse_args()
+
+    if 'send' == args.command:
+        send_command(args)
+    elif 'listen' == args.command:
+        listen_command(args)
+
+
+if '__main__' == __name__:
+    main()
