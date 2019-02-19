@@ -1,7 +1,7 @@
 from unittest import TestCase
 from imp import load_source
 from shlex import split
-from utils import captured_output
+from test.utils import captured_output
 
 command_module = load_source('command', 'bin/rockblock')
 
