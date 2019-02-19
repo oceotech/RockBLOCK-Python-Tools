@@ -2,6 +2,8 @@
 
 from argparse import ArgumentParser
 from rockblock_tools import send
+from rockblock_tools.exception import RockBLOCKException, ApiException
+from sys import exit
 
 parser = ArgumentParser(description='Send and receive messages from the RockBLOCK web services.')
 subparsers = parser.add_subparsers(title='commands', help='Available commands', dest='command')
@@ -11,11 +13,25 @@ send_parser.add_argument('imei', type=str, help='RockBLOCK IMEI number')
 send_parser.add_argument('username', type=str, help='Your RockBLOCK username')
 send_parser.add_argument('password', type=str, help='Your RockBLOCK password')
 send_parser.add_argument('data', type=str, help='The data you want to send')
-send_parser.add_argument('data-format', type=str, default='raw', choices=['raw', 'hex', 'base64'], help='What format is your data in?')
+send_parser.add_argument('--data-format', type=str, default='raw', choices=['raw', 'hex', 'base64'], help='What format is your data in?')
 
 
 def send_command(args):
-    pass
+    decoder = {
+        'raw': lambda d: d,
+        'hex': lambda d: d.decode('hex'),
+        'base64': lambda d: d.decode('base64'),
+    }
+
+    data = decoder[args.data_format](args.data)
+
+    try:
+        send(args.imei, args.username, args.password, data)
+    except RockBLOCKException as e:
+        print(e)
+        exit(1)
+
+    exit(0)
 
 
 listen_parser = subparsers.add_parser('listen', help='Listen to web hooks from a RockBLOCK')
