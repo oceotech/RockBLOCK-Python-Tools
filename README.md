@@ -1,5 +1,7 @@
 # RockBLOCK Python Tools
 
+[![Build Status](https://travis-ci.org/oceotech/RockBLOCK-Python-Tools.svg?branch=master)](https://travis-ci.org/oceotech/RockBLOCK-Python-Tools)
+
 A python library and command line application for interfacing with the RockBLOCK web services.
 
 ## Install
