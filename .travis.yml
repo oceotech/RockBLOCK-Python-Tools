@@ -1,14 +1,8 @@
 language: python
 
-python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-
-install:
-  - pip install -r requirements.txt
+services:
+  - docker
 
 script:
-  - python test.py
+  - docker-compose -f docker-compose.test.yml run --rm test-2-7
+  - docker-compose -f docker-compose.test.yml run --rm test-3-6

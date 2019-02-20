@@ -1,0 +1,23 @@
+version: "2.0"
+
+services:
+  test-2-7:
+    build:
+      context: .
+      dockerfile: test/dockerfile/python-2-7.Dockerfile
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - fake_api
+    command: python test/main.py
+  test-3-6:
+    build:
+      context: .
+      dockerfile: test/dockerfile/python-3-6.Dockerfile
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - fake_api
+    command: python test/main.py
+  fake_api:
+    image: jamesdbloom/mockserver:latest

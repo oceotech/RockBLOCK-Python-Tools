@@ -1,5 +1,7 @@
+from binascii import hexlify
 from requests import post
 from rockblock_tools.exception import ApiException
+from six import string_types
 
 ROCKBLOCK_API_ENDPOINT = 'https://rockblock.rock7.com/rockblock/MT'
 
@@ -9,16 +11,16 @@ def send(imei, username, password, data, url=ROCKBLOCK_API_ENDPOINT):
         'imei': imei,
         'username': username,
         'password': password,
-        'data': data.encode('hex'),
+        'data': hexlify(data if not isinstance(data, string_types) else data.encode('utf-8')),
     })
 
-    response_segments = response.content.split(',')
+    response_segments = response.text.split(',')
 
     status = response_segments[0]
 
     if status == 'OK':
-        # Success
-        return
+        # Success, return mtId
+        return int(response_segments[1])
     elif status == 'FAILED':
         try:
             error_code = int(response_segments[1])

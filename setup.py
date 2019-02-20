@@ -42,7 +42,7 @@ setup(
 
     include_package_data=True,
 
-    install_requires=['requests', 'flask', 'paho-mqtt'],
+    install_requires=['requests', 'flask', 'paho-mqtt', 'six'],
 
     entry_points={
         'console_scripts': ['rockblock=rockblock_tools.command:main'],
