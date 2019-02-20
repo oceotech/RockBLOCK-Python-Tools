@@ -37,11 +37,11 @@ setup(
 
     keywords='rockblock 9603 iridium sbd tools',
 
-    packages=['rockblock_tools'],
+    packages=['rockblock_tools', 'rockblock_tools.formatter'],
 
     include_package_data=True,
 
-    install_requires=['requests', 'flask'],
+    install_requires=['requests', 'flask', 'paho-mqtt'],
 
     scripts=['bin/rockblock'],
 )
