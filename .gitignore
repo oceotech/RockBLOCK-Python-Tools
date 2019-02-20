@@ -4,4 +4,3 @@
 *.egg
 *.egg-info
 /.eggs/
-bin/rockblockc

@@ -82,7 +82,3 @@ def main():
         send_command(args)
     elif 'listen' == args.command:
         listen_command(args)
-
-
-if '__main__' == __name__:
-    main()

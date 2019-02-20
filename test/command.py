@@ -1,15 +1,11 @@
 from unittest import TestCase
-from imp import load_source
+from rockblock_tools.command import parser
 from shlex import split
 from test.utils import captured_output
-
-command_module = load_source('command', 'bin/rockblock')
 
 
 class CommandTestCase(TestCase):
     def test_valid_commands(self):
-        parser = command_module.parser
-
         valid_commands = [
             'rockblock send imei user pass "Hello, World"',
             'rockblock send imei user pass "Hello, World" --data-format=raw',
@@ -27,8 +23,6 @@ class CommandTestCase(TestCase):
                 self.fail('Exception parsing valid command: {}'.format(command))
 
     def test_invalid_commands(self):
-        parser = command_module.parser
-
         invalid_commands = [
             'rockblock send imei user pass',
             'rockblock send imei user pass "Hello, World" --data-format=foo',

@@ -9,11 +9,12 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='rockblock_tools',
-    version='0.0.0',
+    name='rockblock-tools',
+    version='0.0.3',
 
     description='RockBLOCK message sending and receiving tools',
     long_description=long_description,
+    long_description_content_type = 'text/markdown',
 
     url='https://github.com/oceotech/RockBLOCK-Python-Tools',
 
@@ -43,5 +44,7 @@ setup(
 
     install_requires=['requests', 'flask', 'paho-mqtt'],
 
-    scripts=['bin/rockblock'],
+    entry_points={
+        'console_scripts': ['rockblock=rockblock_tools.command:main'],
+    },
 )
