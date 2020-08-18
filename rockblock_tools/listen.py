@@ -12,7 +12,7 @@ class InboundMessage:
         self.momsn = int(payload['momsn'])
         self.imei = payload['imei']
         self.serial = payload['serial']
-        self.data = payload['data'].decode('hex')
+        self.data = payload['data']
         self.iridium_cep = float(payload['iridium_cep'])
 
 
