@@ -37,3 +37,5 @@ def listen(host, port, callback):
     app.add_url_rule('/', 'webhook', view_func=view_func, methods=['POST'])
 
     app.run(host=host, port=port)
+
+    return app
