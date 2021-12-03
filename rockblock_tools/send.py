@@ -1,6 +1,6 @@
 from binascii import hexlify
 from requests import post
-from rockblock_tools.exception import ApiException
+from rockblock_tools.exception import ApiException, RockBLOCKException
 from six import string_types
 
 ROCKBLOCK_API_ENDPOINT = 'https://rockblock.rock7.com/rockblock/MT'
